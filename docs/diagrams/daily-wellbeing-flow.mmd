@@ -1,0 +1,37 @@
+---
+config:
+  theme: base
+  themeVariables:
+    fontFamily: Arial
+    fontSize: 18px
+    primaryColor: '#edf3ff'
+    primaryBorderColor: '#365b8c'
+    primaryTextColor: '#172b4d'
+    lineColor: '#52657d'
+    edgeLabelBackground: '#ffffff'
+  flowchart:
+    htmlLabels: false
+    curve: basis
+    rankSpacing: 90
+    nodeSpacing: 65
+    padding: 22
+---
+flowchart TD
+    Browser[Browser] -->|Sign in| Auth0[Auth0]
+    Browser -->|Connect Fitbit| App[Next.js backend]
+    App -->|Connected Accounts| Auth0
+    Auth0 -->|OAuth authorization| Fitbit[Google Health API]
+    App -->|Retrieve Fitbit token| Vault[Auth0 Token Vault]
+    App -->|Read authorized data| Fitbit
+    App -->|Show normalized report| Browser
+    Browser -->|Choose sharing and generate| App
+    App -->|Model request and summary tool| Fireworks[Fireworks]
+    Fireworks -->|Suggestions through backend| Browser
+    classDef browser fill:#f5f7fa,stroke:#596c84,color:#172b4d
+    classDef backend fill:#eee9ff,stroke:#6a4ca5,color:#30204d
+    classDef auth fill:#fff1e6,stroke:#a85c18,color:#5c3516
+    classDef provider fill:#e8f5ed,stroke:#427856,color:#214b30
+    class Browser browser
+    class App backend
+    class Auth0,Vault auth
+    class Fitbit,Fireworks provider
